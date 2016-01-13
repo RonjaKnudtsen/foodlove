@@ -1,0 +1,21 @@
+
+<a ui-sref="recipes()">Back to recipes</a>
+<div ng-model="recipe">
+	<h1 id="title">{{recipe.recipeTitle}}</h1>
+	<p id="type">Type: {{recipe.type}}</p>
+	<p id="date">Date: {{recipe.updated}}</p>
+	<p id="allergy">Allergy: {{recipe.allergy}}</p>
+	<p id="xBenefit">X-benefit: {{recipe.xBenefit}}</p>
+	<div id="description">
+		{{recipe.description}}
+	</div>
+	<a class="btn btn-primary" ui-sref="editRecipe({slug: recipe.slug})">Edit this recipe</a>
+</div>
+</br>
+<div id="ingredient-list">
+	<ul>
+		<li ng-repeat="ingredient in ingredientlist">
+			{{ingredient.quantity}} {{ingredient.unit}}	<b>{{ingredient.ingredient}}</b> <i>({{ingredient.comment}})</i>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,12 @@
+<h1>New recipe</h1>
+<p>Requires login</p>
+<p>Takes slug to edit recipe</p>
+<!--the backend wants: title, slug, featureImage, type, description-->
+
+
+<!--NG submit says what function to call on submit-->
+<form class="form-horizontal" role="form" ng-submit="addRecipe()">
+  <div ng-include="'recipe/_form.html'"></div>
+  <div ng-include="'ingredientlist/new-ingredientlist.html'"></div>
+
+

@@ -1,0 +1,38 @@
+
+
+
+<a ui-sref="recipes()">Back to recipes</a>
+<div ng-model="recipe">
+<h1>Edit recipe:<b> {{recipe.recipeTitle}}</b></h1>
+<p>Requries login</p>
+	
+	<form class="form-horizontal" role="form" ng-submit="updateRecipe(recipe)">
+	<div ng-include="'recipe/_form.html'"></div>
+	<div class="form-group">
+	  <div class="col-sm-offset-2 col-sm-10">
+	    <input type="submit" class="btn btn-primary" value="Save"/>
+	  </div>
+	</div>
+		<div class="form-group">
+	  <div class="col-sm-offset-2 col-sm-10">
+	    <a class="btn btn-danger" ng-click="deleteRecipe(recipe)">Delete recipe</a>
+	  </div>
+	</div>
+
+	</form>
+
+	
+
+
+	
+
+
+</div>
+</br>
+<div id="ingredient-list">
+	<ul>
+		<li ng-repeat="ingredient in ingredientlist">
+			{{ingredient.quantity}} {{ingredient.unit}}	<b>{{ingredient.name}}</b> <i>({{ingredient.comment}})</i>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,27 @@
+<h1>Recipes</h1>
+<a ui-sref="newRecipe" class="btn btn-primary">Add new recipe</a>
+<div ng-repeat="recipe in recipelist">
+<!--Use ui route to route the correct recipe, then the parameter si taken into the controller which fetches the recipe-->
+<!--ui sref example: <a ui-sref="oneRecipe({slug:'tittel1'})">tittel1</a>-->
+<!--({slug: '{{recipe.slug}}'})-->
+
+	<a ui-sref="oneRecipe({slug: recipe.slug})"><h1 id="title">{{recipe.recipeTitle}}</h1></a>
+	<p id="type">Type: {{recipe.type}}</p>
+	<p id="allergy">Allergy: {{recipe.allergy}}</p>
+	<p id="xBenefit">X-benefit: {{recipe.xBenefit}}</p>
+	<div id="description">
+		{{recipe.description}}
+	</div>
+<!-- Index is needed to remove it from the NG repeat dynamically-->
+	<a class="btn btn-danger" ng-click="deleteRecipe(recipe,$index)">Delete recipe</a>
+	<a ui-sref="editRecipe({slug: recipe.slug})" class="btn btn-primary">Edit recipe</a>
+
+	<!--<div id="ingredient-list">
+		<ul>
+			<li ng-repeat="ingredient in ingredientlist">
+				{{ingredient.quantity}} {{ingredient.unit}}	<b>{{ingredient.name}}</b> <i>({{ingredient.comment}})</i>
+			</li>
+		</ul>
+	</div>-->
+
+</div>

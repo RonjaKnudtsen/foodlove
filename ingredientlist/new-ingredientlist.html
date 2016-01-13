@@ -1,0 +1,45 @@
+<h3>Ingredientlist</h3>
+
+
+
+
+
+<table class="table-condensed form-inline">
+	<span id="helpBlock" class="help-block">Example: 1 dl milk 100 or 1 carrot 200 scliced</span>
+	<tr>
+		<th>Quantity</th>
+		<th>Unit</th>
+		<th>Ingredient</th>
+		<th>Comment</th>
+		<th>Grams</th>
+	</tr>
+
+	<tr ng-repeat="list in ingredientlistInput" id="{{list.id}}">
+		<td><input class="form-control" type="number" ng-model="list.quantity"></td>
+		<td><input class="form-control" type="text" ng-model="list.unit"></td>
+		<td><input class="form-control" type="text" ng-model="list.ingredient"></td>
+		<td><input class="form-control" type="text" ng-model="list.comment"></td>
+		<td><input class="form-control" type="number" ng-model="list.grams"></td>
+		<td><a class="btn btn-primary" ng-click="addRow()">+</a></td>
+		<td><a class="btn btn-danger" ng-click="ingredientlistInput.splice($index, 1)">-</a></td>
+	</tr>
+	    
+</table>
+
+
+<br/><br/>
+	<input type="submit" class="btn btn-primary" value="Save"/>
+	    <a class="btn btn-danger" ng-click="deleteRecipe(recipe)">Delete recipe</a>
+</form>
+<!--<form>
+	<div class="form-inline">
+		<span ng-repeat="list in ingredientlist">
+		<input class="form-control"  type="text" ng-model="list.ingredient" placeholder="Ingredient">
+		<input class="form-control" type="number" ng-model="list.quantity" placeholder="Quantity">
+		<input class="form-control" type="text" ng-model="list.unit" placeholder="Unit">
+		<input class="form-control" type="number" ng-model="list.grams" placeholder="Grams">
+		<input class="form-control" type="text" ng-model="list.comment" placeholder="comment">
+		
+		</span>
+	</div>
+</form>-->

@@ -1,0 +1,18 @@
+RewriteEngine On
+
+#RewriteRule ^api/recipe/([^/]*)$ /tests/foodlove/api/recipe.php?slug=$1 
+RewriteRule ^api/recipe/([^/]*)$ /foodlove/api/recipe.php?slug=$1
+RewriteRule ^api/ingredientlist/([^/]*)$ /foodlove/api/ingredientlist.php?recipeId=$1
+
+# If the request doesn't end in .php (Case insensitive) continue processing rules
+RewriteRule ^api/recipe/?$ api/recipe.php  [NC]
+RewriteRule ^api/ingredientlist/?$ api/ingredientlist.php  [NC]
+
+
+
+#RewriteCond %{REQUEST_URI} !\.php$ [NC]
+# If the request doesn't end in a slash continue processing the rules
+#RewriteCond %{REQUEST_URI} [^/]$
+# Rewrite the request with a .php extension. L means this is the 'Last' rule
+#RewriteRule ^(.*)$ $1.php 
+
