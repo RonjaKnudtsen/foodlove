@@ -1,11 +1,7 @@
 <h3>Ingredientlist</h3>
 
 
-
-
-<!-- Burde slå saammen edit og new ingredientlist til samme skjema-->
 <table class="table-condensed form-inline">
-	<span id="helpBlock" class="help-block">Example: 1 dl milk 100 or 1 carrot 200 scliced</span>
 	<tr>
 		<th>Quantity</th>
 		<th>Unit</th>
@@ -14,14 +10,15 @@
 		<th>Grams</th>
 	</tr>
 
-	<tr ng-repeat="list in ingredientlistInput" id="{{list.id}}">
-		<td><input class="form-control" type="number" step="0.1"  ng-model="list.quantity"></td>
+	<tr ng-repeat="list in ingredientlist" id="{{list.id}}">
+		<!--String needs to be converted into number before beeing passed here-->
+		<td><input class="form-control" type="number" step="0.1" ng-model="list.quantity"></td>
 		<td><input class="form-control" type="text" ng-model="list.unit"></td>
 		<td><input class="form-control" type="text" ng-model="list.ingredient"></td>
 		<td><input class="form-control" type="text" ng-model="list.comment"></td>
 		<td><input class="form-control" type="number" ng-model="list.grams"></td>
 		<td><a class="btn btn-primary" ng-click="addRow()">+</a></td>
-		<td><a class="btn btn-danger" ng-click="ingredientlistInput.splice($index, 1)">-</a></td>
+		<td><a class="btn btn-danger" ng-click="ingredientlist.splice($index, 1)">-</a></td>
 	</tr>
 	    
 </table>

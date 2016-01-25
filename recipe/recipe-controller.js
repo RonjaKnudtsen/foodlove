@@ -1,11 +1,14 @@
 //Create new module to contain all recipe controllers
-angular.module('recipe.controllers', []).controller('recipe-controller',function($scope, $state, RecipeService) {
+angular.module('recipe.controllers', [])
 
-var recipelist = RecipeService.query(function(){
-	console.log(recipelist);
+//Controller for multiple recipes
+.controller('recipe-controller',function($scope, $state, RecipeService) {
+
+$scope.recipelist = RecipeService.query(function(){
+	console.log($scope.recipelist);
 });
-$scope.recipelist = recipelist;
 
+//This should be placed somewhere else
 $scope.deleteRecipe = function(recipe, index){
 	$slug = recipe.slug;
 	console.log($scope.slug);
@@ -18,16 +21,19 @@ $scope.deleteRecipe = function(recipe, index){
 
 
 }).controller('one-recipe-controller',function($scope, $stateParams, RecipeService, IngredientListService){
+	//To hold the ingredientlist as we fetch it async
 	$scope.ingredientlist = [];
+	//Get the recipe from resource
 	$scope.recipe = RecipeService.get({slug: $stateParams.slug}, function(){
-			console.log($scope.recipe.id);
+			//Save the recipe ID 
 			rId = $scope.recipe.id
-			$scope.list = IngredientListService.get({recipeId: rId}, function(response){
-				console.log("ingredientlist: ");
-				console.log($scope.list);
-				$scope.ingredientlist.push($scope.list);
-				//     VI SENDER BARE EN FRA SERVEREN 
-				//		MÅ HENTE UT FLERE
+			//Get all the rows for the ingredientlist based on recipe ID
+			$scope.list = IngredientListService.query({recipeId: rId}, function(response){
+				//Push the listelement onto the ingredientlist array
+				for (var i = 0; i < $scope.list.length; i++) {
+					$scope.ingredientlist.push($scope.list[i]);
+					console.log($scope.ingredientlist);
+				};
 			});
 	});
 
@@ -47,17 +53,38 @@ $scope.deleteRecipe = function(recipe, index){
 	//$stateParams has the slug, which we can use to retrieve form the database
 	//$stateParams.slug
 	//from the example: $scope.movie = Movie.get({ id: $stateParams.id }); 
-	/*$scope.ingredientlist = [
-		{quantity: '1', unit: 'liter', name: 'melk'},
-		{quantity: '3', unit: 'desiliter', name: 'hvetemel'},
-		{quantity: '1', unit: 'knust', name: 'banan', comment:'frossen'},
-	];*/
 
-}).controller('edit-recipe-controller',function($scope, $state, $stateParams, RecipeService){
 
+}).controller('edit-recipe-controller',function($scope, $state, $stateParams, RecipeService, IngredientListService){
+/* Old one before implementing ingredientlist
 	var recipe = RecipeService.get({slug: $stateParams.slug});
 	console.log(recipe);
 	$scope.recipe = recipe;
+	*/
+	$scope.ingredientlist = [];
+	//Get the recipe from resource
+	$scope.recipe = RecipeService.get({slug: $stateParams.slug}, function(){
+			//Save the recipe ID 
+			rId = $scope.recipe.id
+			//Get all the rows for the ingredientlist based on recipe ID
+			$scope.list = IngredientListService.query({recipeId: rId}, function(response){
+				//Push the listelement onto the ingredientlist array
+				for (var i = 0; i < $scope.list.length; i++) {
+					//Turn the floats into integers, not strings!
+					$scope.list[i].quantity = parseInt($scope.list[i].quantity);
+					$scope.list[i].grams = parseInt($scope.list[i].grams);
+					
+					//Push the ingredientlist we got onto the list array
+					$scope.ingredientlist.push($scope.list[i]);
+
+					console.log(typeof $scope.list[i].quantity);
+					console.log(typeof $scope.list[i].grams);
+					console.log($scope.ingredientlist[i]);
+				};
+			});
+	});
+
+
 
 	//Create a new RecipeService instance 
 
@@ -65,10 +92,17 @@ $scope.deleteRecipe = function(recipe, index){
 	$scope.updateRecipe = function () {
 		//on the server side we use the slug to find the same recipe
 		$scope.recipe.$update(function(response){
-			console.log(response);
+			console.log(response);	
+			//Update ingredientlist after the recipe is updated.
+			//THis is so we know both are done befor changing state.
+			for (var i = 0; i < $scope.list.length; i++) {
+				$scope.list[i].$update();
+			};
 			$state.go('recipes');
 		});
+
 	};
+
 
 }).controller('new-recipe-controller',function($scope, $state, $stateParams, RecipeService, IngredientListService){
 		//takes .recipe from ng model and makes a new recipeservice object

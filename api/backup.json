@@ -579,4 +579,11 @@
     "slug": "shokoshake",
     "type": "shake2",
     "description": "Integer semper efficitur quam a eleifend. Nullam a mattis ligula, eu pulvinar tortor. Nam id ultricies enim. Aliquam fermentum velit quis tellus ullamcorper, quis blandit nunc suscipit. Phasellus consectetur ornare magna, non vulputate metus viverra "
+}{
+    "id": "189",
+    "updated": "2016-01-13 12:07:26",
+    "recipeTitle": "Test",
+    "slug": "test",
+    "type": "1",
+    "description": "1"
 }

@@ -20,12 +20,26 @@ foodlove.factory('RecipeService', function($resource){
 
 foodlove.factory('IngredientListService', function($resource){
         //Uses slugs as id, they should be UNIQUE
-        return $resource('api/ingredientlist/:recipeId', {recipeId: '@recipeId'},{
-            update: {
-                method: 'PUT'
-            }
-        });
+        var listServiceResource = $resource('api/ingredientlist/:recipeId',
+            {recipeId: '@recipeId'},{
+                query: {
+                    method: 'GET',
+                    isArray:true,
+                    params:{
+                        recipeId: '@recipeId'
+                        }
+                    },
+                update: {
+                    method: 'PUT'
+                    }
+            });
+        
+        return listServiceResource;
     });
+
+//Slett skal slette alle med samme recipeId
+//Update skal oppdatere alle med samme recipeId
+//Post blir som vanlig
 
 
  foodlove.config(function($stateProvider){

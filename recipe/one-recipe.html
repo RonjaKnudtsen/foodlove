@@ -9,13 +9,17 @@
 	<div id="description">
 		{{recipe.description}}
 	</div>
+
+	</br>
+
+	<div id="ingredient-list">
+		<ul>
+			<li ng-repeat="ingredient in ingredientlist">
+				{{ingredient.quantity}} {{ingredient.unit}}	<b>{{ingredient.ingredient}}</b> <i ng-if="ingredient.comment">({{ingredient.comment}})</i>
+			</li>
+		</ul>
+	</div>
+
 	<a class="btn btn-primary" ui-sref="editRecipe({slug: recipe.slug})">Edit this recipe</a>
 </div>
-</br>
-<div id="ingredient-list">
-	<ul>
-		<li ng-repeat="ingredient in ingredientlist">
-			{{ingredient.quantity}} {{ingredient.unit}}	<b>{{ingredient.ingredient}}</b> <i>({{ingredient.comment}})</i>
-		</li>
-	</ul>
-</div>
+
