@@ -35,6 +35,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	require_once("updateIngredientlist.php");
 	$ingredientlist = putIngredientlist($ingredientlist);
 
+//	$ingredientlist = json_encode($ingredientlist, JSON_PRETTY_PRINT);
+
+	$file_handle = fopen('Test.json', 'a+');
+	fwrite($file_handle, $ingredientlist);
+	fclose($file_handle);
+
 //DROP: drop one ingredientlist(takes slug)
 } else if($_SERVER['REQUEST_METHOD']=='DELETE'){
 

@@ -5,7 +5,7 @@ angular.module('recipe.controllers', [])
 .controller('recipe-controller',function($scope, $state, RecipeService) {
 
 $scope.recipelist = RecipeService.query(function(){
-	console.log($scope.recipelist);
+	//console.log($scope.recipelist);
 });
 
 //This should be placed somewhere else
@@ -56,16 +56,32 @@ $scope.deleteRecipe = function(recipe, index){
 
 
 }).controller('edit-recipe-controller',function($scope, $state, $stateParams, RecipeService, IngredientListService){
-/* Old one before implementing ingredientlist
-	var recipe = RecipeService.get({slug: $stateParams.slug});
-	console.log(recipe);
-	$scope.recipe = recipe;
-	*/
+
+	//This exact duplicate is also in "new recipe", should be moved into a directive or something
+	var counter = 0;
+	$scope.ingredientlist = [{
+		id: counter
+	}]
+	
+	$scope.addRow = function(){
+		console.log ("ADD");
+		counter ++;
+		$scope.ingredientlist.push({
+			id: counter
+		});
+	}
+	$scope.removeRow = function(index){
+		$scope.ingredientlist.splice(index, 1);
+	}
+
+
+
 	$scope.ingredientlist = [];
 	//Get the recipe from resource
 	$scope.recipe = RecipeService.get({slug: $stateParams.slug}, function(){
 			//Save the recipe ID 
 			rId = $scope.recipe.id
+
 			//Get all the rows for the ingredientlist based on recipe ID
 			$scope.list = IngredientListService.query({recipeId: rId}, function(response){
 				//Push the listelement onto the ingredientlist array
@@ -91,16 +107,66 @@ $scope.deleteRecipe = function(recipe, index){
 	//action which is fired on update
 	$scope.updateRecipe = function () {
 		//on the server side we use the slug to find the same recipe
-		$scope.recipe.$update(function(response){
-			console.log(response);	
+		$scope.recipe.$update(function(repsonse){
+
+
+			 $scope.list = $scope.ingredientlist;
+
+
+			//console.log(response);	
 			//Update ingredientlist after the recipe is updated.
 			//THis is so we know both are done befor changing state.
-			for (var i = 0; i < $scope.list.length; i++) {
-				$scope.list[i].$update();
+
+			for (var i = 0; i < $scope.ingredientlist.length; i++) {
+				//Need to add the new items onto the service instance like in new recipe
+				//If there is an instance of the list item update it, else create a new
+				if($scope.list[i].$update){
+					$scope.list[i].$update(function(response){
+						console.log(response);	
+					});
+				}else{
+
+					console.log("List:");
+					console.log($scope.list[i]);
+
+					$scope.list[i].recipeId = $scope.recipe.id;
+					console.log($scope.list[i]);
+					//$scope.list[i] = new IngredientListService(); 
+
+					$scope.list[i].$save();
+					console.log($scope.list[i]);
+
+					//$scope.list[i] = new IngredientListService(); 
+
+					//Push the item from the table back to the instance
+					/*$scope.ingredientlist[i].recipeId = $scope.recipe.id;
+					console.log("Ingredientlist object:");
+					console.log($scope.ingredientlist[i].recipeId);
+					console.log($scope.ingredientlist[i].ingredient);
+
+
+					$scope.list[i] = $scope.ingredientlist[i];
+					console.log("Ingredientlist instance:");
+					console.log($scope.ingredientlist[i]);
+
+					$scope.ingredientlist[i].$save();
+/*
+					$scope.list[i].push($scope.ingredientlist[i]);
+					$scope.list[i].recipeId = $scope.recipeId;
+					$scope.list[i] = new IngredientListService();*/
+				};
+				
+				
 			};
 			$state.go('recipes');
 		});
 
+		//Create a new ListService instance 
+		//Cant just update the previous one because we might have new rows
+		//In the backend we need to remove the ones that arent created here
+		/*$scope.ingredientlist = new IngredientListService();
+
+		$scope.ingredientlist.$save*/
 	};
 
 
@@ -115,6 +181,7 @@ $scope.deleteRecipe = function(recipe, index){
 		$scope.ingredientlistInput = [{
 			id: counter
 		}]
+
 		$scope.addRow = function(){
 			console.log ("ADD");
 			counter ++;

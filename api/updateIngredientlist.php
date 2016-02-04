@@ -9,7 +9,7 @@
 		$unit =	$ingredientList['unit'];
 		$grams = $ingredientList['grams'];
 		$comment = $ingredientList['comment'];
-
+		/*
 		$query = "UPDATE ingredientlist
 		SET quantity = '$quantity', 
 			ingredient = '$ingredient', 
@@ -17,6 +17,21 @@
 			grams = '$grams',
 			comment = '$comment'
 		WHERE list_ID = '$list_ID'";
+		*/
+
+		$query = "INSERT INTO ingredientlist (list_ID, quantity, ingredient, unit, grams, comment)
+			VALUES ('$list_ID',
+				'$quantity',
+				'$ingredient',
+				'$unit',
+				'$grams',
+				'$comment')
+			ON DUPLICATE KEY UPDATE
+				quantity = '$quantity', 
+				ingredient = '$ingredient', 
+				unit = '$unit',
+				grams = '$grams',
+				comment = '$comment'";
 
 		if(mysqli_query($conn, $query)){
 			//$response =  json_decode($slug);
