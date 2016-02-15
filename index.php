@@ -43,7 +43,7 @@
         <!-- MAIN CONTENT AND INJECTED VIEWS -->
         <!-- angular templating -->
         <!-- this is where content will be injected -->
-        <div id="main">
+        <div id="main" class="container bs-docs-container">
         	<div ui-view>
 
         	</div>
