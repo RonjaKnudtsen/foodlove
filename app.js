@@ -3,7 +3,13 @@
 //Takes ngRoute, resource, the recipe controller(module), the recipe service(module), and later ingredient controller and service
 //The recipe controller module contains all the controllers for the recipes, and same with the recipe-service module  
 //They need to be loaded in the index
-var foodlove = angular.module('foodlove', ['ui.router', 'ngResource', 'recipe.controllers']);
+
+
+//Initiates a empty recipe module for controllers, the individual controllers assign themselves to this later. 
+//Splitting up controllers: http://stackoverflow.com/questions/20087627/how-to-create-separate-angularjs-controller-files
+angular.module('recipe.controllers', []);
+angular.module('recipe.directives', []);
+var foodlove = angular.module('foodlove', ['ui.router', 'ngResource', 'recipe.controllers', 'recipe.directives']);
 
  //---------RouteProvider
  //Maybe change this to stateprovider later?
@@ -45,8 +51,8 @@ foodlove.factory('IngredientListService', function($resource){
  foodlove.config(function($stateProvider){
     $stateProvider.state('recipes', {
         url: '/recipe',
-        templateUrl : 'recipe/recipes.html',
-        controller  : 'recipe-controller'
+        templateUrl : 'recipe/all-recipes.html',
+        controller  : 'all-recipes-controller'
     }).state('newRecipe',{
         url:'/recipe/new',
         views: {
@@ -60,11 +66,11 @@ foodlove.factory('IngredientListService', function($resource){
                 parent: 'recipe'
             }
         }
-    }).state('oneRecipe', {//can now use ui-sref="editMovie({id:movie._id}) and it will change state, give correct url and take one parameter with it
+    }).state('oneRecipe', {
         url:'/recipe/:slug',
         templateUrl: 'recipe/one-Recipe.html',
         controller  : 'one-recipe-controller'
-    }).state('editRecipe', {//can now use ui-sref="editMovie({id:movie._id}) and it will change state, give correct url and take one parameter with it
+    }).state('editRecipe', {
         url:'/recipe/:slug/edit',
         templateUrl : 'recipe/edit-recipe.html',
         controller  : 'edit-recipe-controller'

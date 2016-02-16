@@ -3,21 +3,25 @@
 	<head>
 		<!--Bootstrap css-->
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+
 		<!-- load angular and angular route via CDN and angular resource -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>     
-<script src="angular-ui-router.min.js"></script>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>-->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js"></script>
-<script src="angular-popup-service.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>     
+        <script src="angular-ui-router.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js"></script>
+        <script src="angular-popup-service.js"></script>
 
-        <!--app.js enables routing and creates the module-->
-        <script src="recipe/recipe-controller.js"></script>
-
-
+        <!--app.js: Our main app, collecting all controllers and views together-->
         <script src="app.js"></script>
-        <!--The controller and service for recipe-->
 
-       <!--<script src="recipe/recipe-service.js"></script>-->
+        <!--Load all our recipe controllers-->
+        <script src="recipe/all-recipes-controller.js"></script>
+        <script src="recipe/one-recipe-controller.js"></script>
+        <script src="recipe/new-recipe-controller.js"></script>
+        <script src="recipe/edit-recipe-controller.js"></script>
+
+        <!--Loading directives-->
+
+        <script src="recipe/recipe.directives.js"></script>
 
 	</head>
 

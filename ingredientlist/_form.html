@@ -1,0 +1,35 @@
+<h3>Ingredientlist</h3>
+
+<table class="table-condensed form-inline">
+	<tr>
+		<th>Quantity</th>
+		<th>Unit</th>
+		<th>Ingredient</th>
+		<th>Comment</th>
+		<th>Grams</th>
+	</tr>
+
+	<tr ng-repeat="list in ingredientlist" id="{{list.id}}">
+		<!--String needs to be converted into number before beeing passed here-->
+		<td><input class="form-control" type="number" step="0.1" ng-model="list.quantity"></td>
+		<td><input class="form-control" type="text" ng-model="list.unit"></td>
+		<td><input class="form-control" type="text" ng-model="list.ingredient"></td>
+		<td><input class="form-control" type="text" ng-model="list.comment"></td>
+		<td><input class="form-control" type="number" ng-model="list.grams"></td>
+		<td><a class="btn btn-danger" ng-click="ingredientlist.splice($index, 1)">-</a></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td><a class="btn btn-primary" ng-click="addEmptyRow()">+</a></td>
+	</tr>
+	    
+</table>
+
+
+<br/><br/>
+	<input type="submit" class="btn btn-success" placeholder="Save recipe"value="Save"/>
+	    <a class="btn btn-danger" ng-click="deleteRecipe(recipe)">Delete recipe</a>
